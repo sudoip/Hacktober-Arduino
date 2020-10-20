@@ -1,0 +1,54 @@
+When the program starts running, the servo motor will rotate slowly from 0 degrees to 180 degrees, one degree at a time. When the motor has rotated 180 degrees, it will begin to rotate in the other direction until it returns to the home position.
+
+#include <Servo.h>             //Servo library
+ 
+Servo servo_test;    		//initialize a servo object for the connected servo  
+                
+int angle = 0;    
+ 
+void setup() 
+{ 
+  servo_test.attach(9); 		 // attach the signal pin of servo to pin9 of arduino
+} 
+  
+void loop() 
+{ 
+  for(angle = 0; angle < 180; angle += 1) 	 // command to move from 0 degrees to 180 degrees 
+  {                                  
+    servo_test.write(angle);              	 //command to rotate the servo to the specified angle
+    delay(15);                       
+  } 
+ 
+  delay(1000);
+  
+  for(angle = 180; angle>=1; angle-=5)     // command to move from 180 degrees to 0 degrees 
+  {                                
+    servo_test.write(angle);              //command to rotate the servo to the specified angle
+    delay(5);                       
+  } 
+
+    delay(1000);
+}
+
+Once the program is started, rotating the potentiometer should cause the shaft of the servo motor to rotate.
+
+ #include <Servo.h>        //Servo library
+ 
+ Servo servo_test;    	//initialize a servo object for the connected servo  
+                
+ int angle = 0;    
+ int potentio = A0;      // initialize the A0analog pin for potentiometer
+
+ 
+ void setup() 
+ { 
+  servo_test.attach(9); 	// attach the signal pin of servo to pin9 of arduino
+ } 
+ 
+ void loop() 
+ { 
+  angle = analogRead(potentio);            // reading the potentiometer value between 0 and 1023 
+  angle = map(angle, 0, 1023, 0, 179);     // scaling the potentiometer value to angle value for servo between 0 and 180) 
+  servo_test.write(angle);                   //command to rotate the servo to the specified angle 
+  delay(5);             
+ }  
